@@ -61,7 +61,7 @@ print '\n',nIm,'cicli a blocchi di ',nsPlot
 print 'sono',nIm//nsPlot, " immagini da ", nsPlot
 print "e 1 immagine da", nIm%nsPlot,'\n'
 
-#gen_subplot(1,nIm//nsPlot,d,nsPlot,nsPlot)
+gen_subplot(1,nIm//nsPlot,d,nsPlot,nsPlot)
 
 if nIm%nsPlot != 0:
     gen_subplot(nIm//nsPlot+1,nIm//nsPlot+1,d,nsPlot,nIm%nsPlot)
