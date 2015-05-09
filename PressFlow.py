@@ -45,17 +45,19 @@ nsPlot = 6
 print nIm,type(d),np.shape(d),'\n'
 
 for i in range(1,nIm//nsPlot):
-    
+    fig = plt.figure()
     for j in range(nsPlot):
         cycle = np.asarray(d.pop())
-        fig = plt.figure()
         plt.subplot(3,2,j)
         plt.plot(cycle[:,1],cycle[:,2],'r')
         plt.xlabel('Pressione')
         plt.ylabel('Flusso')
-            dir = os.path.dirname('images/')
-        if not os.path.exists(dir):
-            os.makedirs(dir)
-        filename = "".join(('images/image',str(i)))
-        print "Saving",filename 
-        plt.savefig(filename)
+    dir = os.path.dirname('images/')
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+    filename = "".join(('images/image',str(i)))
+    print "Saving",filename 
+    plt.savefig(filename)
+    plt.close()    
+        
+        
