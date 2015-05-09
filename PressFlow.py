@@ -41,13 +41,30 @@ nIm = len(d) # Numero di Immagini
 
 print nIm,type(d),np.shape(d),'\n'
 
-while d:
-    cycle = np.asarray(d.pop())
-    print len(cycle),type(cycle),np.shape(cycle),"\n"
-    #fig = plt.figure()
-    #ax = fig.axes()
-    plt.plot(cycle[:,1],cycle[:,2],'r')
-    plt.xlabel('Pressione')
-    plt.ylabel('Flusso')
+for i in range(nIm):
+    
+    cycle1 = np.asarray(d.pop())
+    cycle2 = np.asarray(d.pop())
+    cycle3 = np.asarray(d.pop())
+    cycle4 = np.asarray(d.pop())
+    cycle5 = np.asarray(d.pop())
+    cycle6 = np.asarray(d.pop())
+    
+    plt.subplot(321)
+    plt.plot(cycle1[:,1],cycle1[:,2],'r')
+    plt.subplot(322)
+    plt.plot(cycle2[:,1],cycle2[:,2],'r')
+    plt.subplot(323)
+    plt.plot(cycle3[:,1],cycle3[:,2],'r')
+    plt.subplot(324)
+    plt.plot(cycle4[:,1],cycle4[:,2],'r')
+    plt.subplot(325)
+    plt.plot(cycle5[:,1],cycle5[:,2],'r')
+    plt.subplot(326)
+    plt.plot(cycle6[:,1],cycle6[:,2],'r')
+    
+    
+    #plt.xlabel('Pressione')
+    #plt.ylabel('Flusso')
     plt.show()
     raw_input("Press cuel to continue...")
