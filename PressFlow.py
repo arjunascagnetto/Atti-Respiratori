@@ -19,7 +19,7 @@ def gen_subplot(start,finish,data,nsPlot,nCicli):
         at = AnchoredText("Figure 1a",loc=2, prop=dict(size=16), frameon=True)
         at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
         ax.add_artist(at)
-        for j in range(nCicli):
+        for j in range(1,nCicli+1):
             cycle = np.asarray(data.pop())
             fig.add_subplot(nsPlot/2,2,j)
             plt.plot(cycle[:,1],cycle[:,2],'r')
