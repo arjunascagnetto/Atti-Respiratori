@@ -70,7 +70,11 @@ print '\n',nIm,'cicli a blocchi di ',nsPlot
 print 'sono',nIm//nsPlot, " immagini da ", nsPlot
 print "e 1 immagine da", nIm%nsPlot,'\n'
 
+<<<<<<< HEAD
 print deque[-1][-1]
+=======
+gen_subplot(1,nIm//nsPlot,d,nsPlot,nsPlot)
+>>>>>>> origin/Plot-3x2
 
 if plotVar:
     gen_subplot(1,nIm//nsPlot,deque,nsPlot,nsPlot)
