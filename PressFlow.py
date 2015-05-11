@@ -3,47 +3,42 @@ import numpy as np
 import os
 from collections import deque
 
-from mpl_toolkits.axes_grid1.anchored_artists import AnchoredText
 
 # !!!! EVEN NUMBER ONLY !!!
-nsPlot = 6 # number of SubPlot 
+nsPlot = 10 # number of SubPlot 
 plotVar = 1
 
-def gen_subplot(start,finish,data,nsPlot,nCicli):
-    font = {'family':'serif','color':'darkred','weight':'normal','size':16,}
-    for i in range(start,finish+1):
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax.set_xlabel('Pressione')
-        ax.set_ylabel('Flusso')
-        at = AnchoredText("Figure 1a",loc=2, prop=dict(size=16), frameon=True)
-        at.patch.set_boxstyle("round,pad=0.,rounding_size=0.2")
-        ax.add_artist(at)
-        for j in range(1,nCicli+1):
-            cycle = np.asarray(data.pop())
-            fig.add_subplot(nsPlot/2,2,j)
-            plt.plot(cycle[:,1],cycle[:,2],'r')
-            #plt.text(2, 0.65, 'prova', fontdict=font)
+def gen_subplot(Num_of_images,data):
+    for i in range(0,Num_of_images):
+        f, ax = plt.subplots(2)
+        ax[0].set_xlabel('Pressione')
+        ax[0].set_ylabel('Flusso')
+        cycle = np.asarray(data[i])
+        time_len = len(cycle[:,0])
+        t = np.linspace(0,1,time_len)
+        print len(t),len(cycle[:,1])
+        ax[0].plot(cycle[:,1],cycle[:,2],'r')
+        ax[1].plot(t,cycle[:,1],t,cycle[:,2],t,cycle[:,3])
         dir = os.path.dirname('images/')
         if not os.path.exists(dir):
             os.makedirs(dir)
-        filename = "".join(('images/image-',str(nsPlot),'-',str(i)))
+        filename = "".join(('images/image-','-',str(i)))
         print "Saving",filename 
-        #plt.savefig(filename,dpi=300)
         plt.savefig(filename)
         plt.close()
 
 def build_data():
-    filename = "estrazione.txt"
+    filename = "estrazione2.txt"
     f = open(filename,"r")
     rows = f.readlines()
     length = len(rows)
-    v = np.ndarray(shape=(length,3),dtype=float)
+    v = np.ndarray(shape=(length,4),dtype=float)
     for i in range(length):
-        v[i,:]=rows[i].replace('\n','').split('\t',2)
+        v[i,:]=rows[i].replace('\n','').split('\t',3)
     st = v[:,0] # States 0 inspirio 1 espirio
     pr = v[:,1] # Pressure
     fl = v[:,2] # Flow
+    ed = v[:,3] # EDI
     c = 1
     d = deque()
     l = []
@@ -54,11 +49,11 @@ def build_data():
                 d.append(l)
                 l = []
                 c = 1
-            l.append(['r',pr[i],fl[i],i+1])
+            l.append([i+1,pr[i],fl[i],ed[i]])
         else:
             if c == 1:
                 c = 0
-            l.append(['g',pr[i],fl[i],i+1])
+            l.append([i+1,pr[i],fl[i],ed[i]])
     # append of the last cycle
     d.append(l)
     return d
@@ -66,15 +61,8 @@ def build_data():
 
 deque = build_data()
 nIm = len(deque) # Number of Images
-print '\n',nIm,'cicli a blocchi di ',nsPlot
-print 'sono',nIm//nsPlot, " immagini da ", nsPlot
-print "e 1 immagine da", nIm%nsPlot,'\n'
-
-
-print deque[-1][-1]
+print '\n',nIm,'immagini'
+print 'ULTIMO APPEND: ',deque[-1][-1]
 
 if plotVar:
-    gen_subplot(1,nIm//nsPlot,deque,nsPlot,nsPlot)
-    if nIm%nsPlot != 0:
-        gen_subplot(nIm//nsPlot+1,nIm//nsPlot+1,deque,nsPlot,nIm%nsPlot)
-
+    gen_subplot(nIm,deque)
