@@ -29,7 +29,7 @@ def ndata(data2norm):
 def gen_subplot(Num_of_images,data,file_data):
     for i in range(0,Num_of_images):
         fontP = FontProperties()
-        fontP.set_size('12')
+        fontP.set_size('8')
         fig = plt.figure(figsize=(20, 10)) 
         cycle = np.asarray(data[i])
         start = cycle[0,0]
@@ -45,11 +45,9 @@ def gen_subplot(Num_of_images,data,file_data):
         axEA = plt.subplot(gs[2, 2])
 
         # Plot dei CICLI
-        axC.set_color_cycle(['black', 'blue'])
+        axC.set_color_cycle(['black', 'red'])
         axC.plot(cycle[:,1],cycle[:,2],cycle[:,1],np.zeros(len(cycle[:,1])))
         axC.set_title(('from',str(start),'to',str(end)))
-        axC.text(200, 400, 'Inspirio', style='italic', bbox={'facecolor':'blue', 'alpha':0.5, 'pad':12})
-        axC.text(200, -440, 'Espirio', style='italic', bbox={'facecolor':'blue', 'alpha':0.5, 'pad':12})
         axC.set_xlabel('Pressione')
         axC.set_ylabel('Flusso')
                 
